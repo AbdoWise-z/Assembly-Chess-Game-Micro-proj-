@@ -1,0 +1,89 @@
+{
+    "masmtasm.ASM.actions": {
+        "TASM": {
+            "baseBundle": "<built-in>/TASM.jsdos",
+            "before": [
+                "set PATH=C:\\TASM",
+                "cycles=160000",
+                "del D:\\build\\*.*", //remove the old build files
+
+                //"serial1=directserial realport:COM2",
+                
+                "serial1=nullmodem port:5000 rxdelay:1000", //<-- run server first
+                //"serial1=nullmodem server:localhost port:5000 rxdelay:1000", //then run the client (works just like directserial)
+                
+            ],
+            "run": [
+                "TASM /m2 ${file} build\\output.obj",
+                
+                "TASM /m2 D:\\graphics.asm build\\graphics.obj",
+                "TASM /m2 D:\\input.asm build\\input.obj",
+                "TASM /m2 D:\\utility.asm build\\utility.obj",
+                "TASM /m2 D:\\Network.asm build\\Network.obj",
+                
+                "TASM /m2 D:\\res.asm build\\res.obj",
+                
+                // D:\\build\\INPUT.OBJ
+
+                "TLINK D:\\build\\output.obj D:\\build\\GRAPHICS.OBJ D:\\build\\INPUT.OBJ D:\\build\\res.OBJ D:\\build\\utility.OBJ D:\\build\\Network.OBJ",
+                ">D:\\build\\output.exe",
+            ],
+            "debug": [
+                "TASM /zi /m2 ${file} build\\output.obj",
+
+                "TASM /zi /m2 D:\\graphics.asm build\\graphics.obj",
+                "TASM /zi /m2 D:\\input.asm build\\input.obj",
+                "TASM /zi /m2 D:\\utility.asm build\\utility.obj",
+                "TASM /zi /m2 D:\\Network.asm build\\Network.obj",
+                
+                "TASM /zi /m2 D:\\res.asm build\\res.obj",
+
+                "TLINK /v/3 D:\\build\\output.obj D:\\build\\GRAPHICS.OBJ D:\\build\\INPUT.OBJ D:\\build\\res.OBJ D:\\build\\utility.OBJ D:\\build\\Network.OBJ",
+                
+                "copy C:\\TASM\\TDC2.TD D:\\build\\TDCONFIG.TD",
+                "TD -cD:\\build\\TDCONFIG.TD D:\\build\\output.exe"
+            ]
+        },
+        "MASM-v6.11": {
+            "baseBundle": "<built-in>/MASM-v6.11.jsdos",
+            "before": [
+                "set PATH=C:\\MASM",
+                "cycles = 15000"
+            ],
+            "run": [
+                "masm ${file};",
+                "link ${filename};",
+                ">${filename}"
+            ],
+            "debug": [
+                "masm ${file};",
+                "link ${filename}.OBJ;",
+                ">debug ${filename}.exe"
+            ]
+        },
+        "MASM-v5.00": {
+            "baseBundle": "<built-in>/MASM-v5.00.jsdos",
+            "before": [
+                "set PATH=C:\\MASM",
+                "cycles = 15000"
+            ],
+            "run": [
+                "masm  ${file};",
+                "link ${filename};",
+                ">${filename}"
+            ],
+            "debug": [
+                "masm ${file};",
+                "link ${filename}.OBJ;",
+                ">debug ${filename}.exe"
+            ],
+            "support": [
+                "jsdos",
+                "dosbox",
+                "dosbox-x",
+                "msdos player"
+            ]
+        }
+    },
+    "masmtasm.ASM.mode": "workspace",
+}
