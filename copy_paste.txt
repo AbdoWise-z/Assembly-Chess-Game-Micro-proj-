@@ -1,0 +1,39 @@
+mov BX , 0000h
+
+        cmp a1 , 11h
+        mov BX , OFFSET black_king
+        jz __do_draw_piece_image
+        cmp a1 , 12h
+        mov BX , OFFSET black_queen
+        jz __do_draw_piece_image
+        cmp a1 , 13h
+        mov BX , OFFSET black_bishop
+        jz __do_draw_piece_image
+        cmp a1 , 14h
+        mov BX , OFFSET black_knight
+        jz __do_draw_piece_image
+        cmp a1 , 15h
+        mov BX , OFFSET black_rock
+        jz __do_draw_piece_image
+        cmp a1 , 16h
+        mov BX , OFFSET black_pawn
+        jz __do_draw_piece_image
+        
+        cmp a1 , 01h
+        mov BX , OFFSET white_king
+        jz __do_draw_piece_image
+        cmp a1 , 02h
+        mov BX , OFFSET white_queen
+        jz __do_draw_piece_image
+        cmp a1 , 03h
+        mov BX , OFFSET white_bishop
+        jz __do_draw_piece_image
+        cmp a1 , 04h
+        mov BX , OFFSET white_knight
+        jz __do_draw_piece_image
+        cmp a1 , 05h
+        mov BX , OFFSET white_rock
+        jz __do_draw_piece_image
+        cmp a1 , 06h
+        mov BX , OFFSET white_pawn
+        jz __do_draw_piece_image
